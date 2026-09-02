@@ -8,12 +8,14 @@
 <title>のあたんとおしごと。</title>
 
 <style>
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
 
 :root{
   --bg:#090203;
   --panel:#19070a;
-  --panel2:#260b10;
   --red:#e43b55;
   --pink:#ff7183;
   --gold:#efbd6d;
@@ -32,24 +34,18 @@ html,body{
 
 body{
   background:
-    radial-gradient(circle at 50% 15%,#4b0d18 0,#1b0609 32%,#080203 72%);
+    radial-gradient(circle at 50% 12%,#4b0d18 0,#1b0609 32%,#080203 72%);
 }
 
-button{
+button,select{
   font-family:inherit;
 }
-
-/* =========================
-   アプリ本体
-========================= */
 
 .app{
   width:100%;
   max-width:430px;
   min-height:100vh;
   margin:auto;
-  position:relative;
-  overflow:hidden;
 }
 
 /* =========================
@@ -60,24 +56,25 @@ button{
   display:none;
   min-height:100vh;
   padding:
+    12px
     14px
-    14px
-    calc(78px + env(safe-area-inset-bottom));
+    calc(82px + env(safe-area-inset-bottom));
 }
 
 .screen.active{
   display:block;
 }
 
-/* =========================
-   今日
-========================= */
+/* ホームだけスクロールなし */
 
 #todayScreen{
   height:100vh;
   overflow:hidden;
-  padding-top:10px;
 }
+
+/* =========================
+   ホームヘッダー
+========================= */
 
 .header{
   text-align:center;
@@ -85,9 +82,9 @@ button{
 
 .title{
   margin:0;
+  color:#ffd488;
   font-size:27px;
   line-height:1.15;
-  color:#ffd488;
   text-shadow:0 0 14px rgba(226,53,78,.65);
 }
 
@@ -102,7 +99,7 @@ button{
 ========================= */
 
 .noatan-area{
-  height:270px;
+  height:268px;
   position:relative;
   display:flex;
   justify-content:center;
@@ -111,14 +108,13 @@ button{
 }
 
 .noatan-button{
-  position:relative;
-  z-index:5;
   width:255px;
   height:265px;
   padding:0;
+  position:relative;
+  z-index:5;
   border:0;
   background:none;
-  cursor:pointer;
 }
 
 .noatan-img{
@@ -126,10 +122,10 @@ button{
   height:100%;
   object-fit:contain;
   filter:drop-shadow(0 0 13px rgba(255,50,76,.38));
-  animation:floatNoatan 3s ease-in-out infinite;
+  animation:noatanFloat 3s ease-in-out infinite;
 }
 
-@keyframes floatNoatan{
+@keyframes noatanFloat{
   0%,100%{transform:translateY(0)}
   50%{transform:translateY(-4px)}
 }
@@ -149,18 +145,17 @@ button{
 
 .bubble{
   position:absolute;
-  left:3px;
-  top:36px;
   z-index:7;
+  left:3px;
+  top:35px;
 
-  width:118px;
-  min-height:76px;
+  width:116px;
+  min-height:74px;
+  padding:10px;
 
   display:flex;
   align-items:center;
   justify-content:center;
-
-  padding:10px;
 
   border:3px solid #d86263;
   border-radius:50%;
@@ -170,20 +165,18 @@ button{
 
   text-align:center;
   font-size:11px;
-  line-height:1.55;
+  line-height:1.5;
   font-weight:700;
-
-  transition:.2s;
 }
 
 .bubble::after{
   content:"";
   position:absolute;
-  right:5px;
-  bottom:-10px;
+  right:6px;
+  bottom:-9px;
 
-  width:18px;
-  height:18px;
+  width:17px;
+  height:17px;
 
   background:#ffe0c5;
   border-right:3px solid #d86263;
@@ -192,11 +185,11 @@ button{
   transform:rotate(35deg);
 }
 
-/* ハート */
+/* ハート乱舞 */
 
 .flying-heart{
   position:absolute;
-  z-index:20;
+  z-index:30;
   pointer-events:none;
 
   animation:heartExplosion 1.65s ease-out forwards;
@@ -205,10 +198,7 @@ button{
 @keyframes heartExplosion{
   0%{
     opacity:0;
-    transform:
-      translate(0,0)
-      scale(.4)
-      rotate(0deg);
+    transform:translate(0,0) scale(.4) rotate(0);
   }
 
   15%{
@@ -225,29 +215,22 @@ button{
 }
 
 /* =========================
-   今日の日付
+   今日
 ========================= */
 
 .today-info{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:7px;
-
   margin-top:-3px;
-  margin-bottom:6px;
+  margin-bottom:5px;
 
+  text-align:center;
+  color:#eebd78;
   font-size:14px;
   font-weight:800;
-  color:#eebd78;
 }
-
-/* =========================
-   質問
-========================= */
 
 .question{
   margin-bottom:7px;
+
   text-align:center;
   color:#f3c2bd;
   font-size:12px;
@@ -264,18 +247,13 @@ button{
 }
 
 .work-card{
-  position:relative;
-
-  height:111px;
-
+  height:108px;
   padding:7px 2px;
 
   border:1px solid #81513a;
   border-radius:16px;
 
-  background:
-    linear-gradient(155deg,#311014,#150608);
-
+  background:linear-gradient(155deg,#311014,#150608);
   color:var(--cream);
 
   text-align:center;
@@ -290,8 +268,7 @@ button{
 .work-card.selected{
   border:2px solid #ffd27a;
 
-  background:
-    linear-gradient(150deg,#9e2336,#4c0d16);
+  background:linear-gradient(150deg,#9e2336,#4c0d16);
 
   box-shadow:
     0 0 8px #ff6879,
@@ -301,11 +278,10 @@ button{
 
 .work-icon{
   font-size:20px;
-  line-height:1;
 }
 
 .work-name{
-  margin-top:4px;
+  margin-top:3px;
   font-size:13px;
   font-weight:800;
 }
@@ -324,37 +300,33 @@ button{
   font-size:9px;
 }
 
-/* =========================
-   のあたん返事
-========================= */
-
 .reply{
-  height:22px;
+  height:21px;
+
   display:flex;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
 
   color:#f58c9a;
-  font-size:11px;
+  font-size:10px;
   font-weight:700;
 }
 
 /* =========================
-   月間コンパクト
+   ホーム月間
 ========================= */
 
 .month-summary{
-  padding:9px 10px;
+  padding:8px 10px;
 
   border:1px solid #80513a;
-  border-radius:17px;
+  border-radius:16px;
 
-  background:
-    linear-gradient(150deg,#20090d,#100406);
+  background:linear-gradient(150deg,#20090d,#100406);
 }
 
 .month-title{
-  margin-bottom:6px;
+  margin-bottom:5px;
 
   text-align:center;
   color:#eebd73;
@@ -366,10 +338,6 @@ button{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   text-align:center;
-}
-
-.month-stat{
-  min-width:0;
 }
 
 .month-stat strong{
@@ -387,7 +355,7 @@ button{
 
 .progress{
   height:7px;
-  margin-top:7px;
+  margin-top:6px;
 
   overflow:hidden;
 
@@ -398,13 +366,12 @@ button{
 }
 
 .progress-bar{
-  height:100%;
   width:0;
+  height:100%;
 
-  background:
-    linear-gradient(90deg,#dc344f,#ff697b);
+  background:linear-gradient(90deg,#dc344f,#ff697b);
 
-  transition:width .4s;
+  transition:.3s;
 }
 
 .progress-text{
@@ -415,50 +382,55 @@ button{
 }
 
 /* =========================
-   記録・給与 共通
+   サブ画面
 ========================= */
 
 .sub-header{
   display:flex;
   align-items:center;
   justify-content:space-between;
+
   margin:4px 0 14px;
 }
 
 .sub-header h2{
   margin:0;
   color:#efbd72;
-  font-size:22px;
+  font-size:25px;
+}
+
+.sub-icon{
+  font-size:25px;
 }
 
 .month-selector{
   display:flex;
   align-items:center;
   justify-content:center;
-  gap:18px;
+  gap:20px;
 
   margin-bottom:14px;
 
-  font-size:19px;
-  font-weight:900;
   color:#ffd180;
+  font-size:20px;
+  font-weight:900;
 }
 
 .month-selector button{
-  width:44px;
-  height:44px;
+  width:46px;
+  height:46px;
 
   border:1px solid #714635;
-  border-radius:13px;
+  border-radius:14px;
 
   background:#210a0e;
   color:#ffd180;
 
-  font-size:20px;
+  font-size:23px;
 }
 
 /* =========================
-   記録画面
+   記録
 ========================= */
 
 .record-summary{
@@ -483,7 +455,7 @@ button{
 .big-stat strong{
   display:block;
   color:#ffd17a;
-  font-size:25px;
+  font-size:26px;
 }
 
 .big-stat small{
@@ -491,19 +463,30 @@ button{
   font-size:10px;
 }
 
+.record-note{
+  margin:0 0 9px;
+
+  text-align:center;
+  color:#d48b91;
+  font-size:10px;
+}
+
 .record-list{
   display:flex;
   flex-direction:column;
-  gap:7px;
+  gap:6px;
+
+  padding-bottom:12px;
 }
 
 .record-row{
   display:grid;
-  grid-template-columns:65px 1fr 58px;
+  grid-template-columns:54px minmax(0,1fr) 42px;
   align-items:center;
+  gap:7px;
 
-  min-height:52px;
-  padding:7px 10px;
+  min-height:55px;
+  padding:7px 9px;
 
   border:1px solid #674033;
   border-radius:13px;
@@ -511,35 +494,55 @@ button{
   background:#18070a;
 }
 
+.record-row.today{
+  border-color:#b96a48;
+
+  box-shadow:
+    inset 0 0 12px rgba(255,95,90,.08);
+}
+
 .record-date{
   color:#e6b271;
+  font-size:13px;
   font-weight:800;
 }
 
-.record-type{
+.record-date small{
+  display:block;
+  margin-top:1px;
+
+  color:#a77e70;
+  font-size:9px;
+}
+
+.edit-select{
+  width:100%;
+  min-width:0;
+
+  padding:8px 5px;
+
+  border:1px solid #744535;
+  border-radius:9px;
+
+  background:#270b10;
+  color:#fff0d5;
+
   font-size:12px;
 }
 
 .record-hours{
   text-align:right;
   color:#ffd17a;
+  font-size:14px;
   font-weight:900;
 }
 
-.edit-select{
-  width:100%;
-  margin-top:5px;
-  padding:6px;
-
-  border:1px solid #744535;
-  border-radius:8px;
-
-  background:#270b10;
-  color:#fff0d5;
+.future-row{
+  opacity:.55;
 }
 
 /* =========================
-   給与画面
+   給与
 ========================= */
 
 .salary-hero{
@@ -549,8 +552,7 @@ button{
   border:1px solid #80503a;
   border-radius:18px;
 
-  background:
-    linear-gradient(150deg,#270b11,#120507);
+  background:linear-gradient(150deg,#270b11,#120507);
 
   text-align:center;
 }
@@ -604,9 +606,7 @@ button{
   border:1px solid #e0a75c;
   border-radius:16px;
 
-  background:
-    linear-gradient(135deg,#9e2438,#d83e54);
-
+  background:linear-gradient(135deg,#9e2438,#d83e54);
   color:white;
 
   font-size:15px;
@@ -633,6 +633,10 @@ button{
 
 .setting-row:last-child{
   border-bottom:0;
+}
+
+.setting-row small{
+  color:#c89c88;
 }
 
 /* =========================
@@ -671,7 +675,6 @@ button{
   background:none;
 
   color:#a87f6e;
-
   font-size:9px;
 }
 
@@ -686,27 +689,37 @@ button{
   text-shadow:0 0 9px #ff4961;
 }
 
-/* XRより縦が短い端末 */
+/* =========================
+   縦が短い端末
+========================= */
 
 @media(max-height:760px){
 
-  .title{font-size:24px}
+  .title{
+    font-size:24px;
+  }
 
-  .noatan-area{height:235px}
-
-  .noatan-button{
-    width:220px;
+  .noatan-area{
     height:230px;
   }
 
+  .noatan-button{
+    width:218px;
+    height:226px;
+  }
+
   .bubble{
-    width:103px;
-    min-height:66px;
-    font-size:10px;
+    width:101px;
+    min-height:64px;
+    font-size:9px;
   }
 
   .work-card{
-    height:101px;
+    height:98px;
+  }
+
+  .work-hours{
+    font-size:22px;
   }
 }
 </style>
@@ -723,9 +736,17 @@ button{
 <section class="screen active" id="todayScreen">
 
   <header class="header">
-    <h1 class="title">のあたんとおしごと。</h1>
-    <div class="subtitle">きょうもいっしょに、えらいのあたん♪</div>
+
+    <h1 class="title">
+      のあたんとおしごと。
+    </h1>
+
+    <div class="subtitle">
+      きょうもいっしょに、えらいのあたん♪
+    </div>
+
   </header>
+
 
   <div class="noatan-area" id="noatanArea">
 
@@ -735,63 +756,93 @@ button{
       がんばろぉ〜💕
     </div>
 
+
     <button
       type="button"
       class="noatan-button"
       id="noatanButton"
       aria-label="のあたんをなでる"
     >
+
       <img
         class="noatan-img"
         src="AF24F85F-2C49-442D-A387-182B2706458C.png"
         alt="のあたん"
       >
+
     </button>
 
   </div>
 
+
   <div class="today-info" id="todayDate"></div>
+
 
   <div class="question">
     きょうはどこまでおしごとしますかぁ？💕
   </div>
 
+
   <div class="work-options">
 
-    <button type="button" class="work-card" data-plan="morning">
+    <button
+      type="button"
+      class="work-card"
+      data-plan="morning"
+    >
       <div class="work-icon">☀️</div>
       <div class="work-name">午前まで</div>
       <div class="work-hours">2h</div>
       <div class="work-time">〜12:00まで</div>
     </button>
 
-    <button type="button" class="work-card" data-plan="full">
+
+    <button
+      type="button"
+      class="work-card"
+      data-plan="full"
+    >
       <div class="work-icon">🌅</div>
       <div class="work-name">午後まで</div>
       <div class="work-hours">4h</div>
       <div class="work-time">〜15:00まで</div>
     </button>
 
-    <button type="button" class="work-card" data-plan="off">
+
+    <button
+      type="button"
+      class="work-card"
+      data-plan="off"
+    >
       <div class="work-icon">🌙</div>
       <div class="work-name">きょうは</div>
-      <div class="work-hours" style="font-size:16px;margin-top:7px">
+
+      <div
+        class="work-hours"
+        style="font-size:16px;margin-top:7px"
+      >
         おやすみ
       </div>
-      <div class="work-time">すやすや…♡</div>
+
+      <div class="work-time">
+        すやすや…♡
+      </div>
     </button>
 
   </div>
 
+
   <div class="reply" id="reply">
     ぽちっと選んでねぇ♡
   </div>
+
 
   <div class="month-summary">
 
     <div class="month-title" id="homeMonthTitle">
       🌸 今月のおしごと 🌸
     </div>
+
 
     <div class="month-stats">
 
@@ -800,10 +851,12 @@ button{
         <small>勤務時間 / 80h</small>
       </div>
 
+
       <div class="month-stat">
         <strong id="homeDays">0日</strong>
         <small>勤務日数 / 20日</small>
       </div>
+
 
       <div class="month-stat">
         <strong id="homeSalary">¥0</strong>
@@ -812,11 +865,21 @@ button{
 
     </div>
 
+
     <div class="progress">
-      <div class="progress-bar" id="homeProgress"></div>
+      <div
+        class="progress-bar"
+        id="homeProgress"
+      ></div>
     </div>
 
-    <div class="progress-text" id="homeProgressText">0%</div>
+
+    <div
+      class="progress-text"
+      id="homeProgressText"
+    >
+      0%
+    </div>
 
   </div>
 
@@ -831,14 +894,30 @@ button{
 
   <div class="sub-header">
     <h2>きろく</h2>
-    <span>📅</span>
+    <span class="sub-icon">📅</span>
   </div>
 
+
   <div class="month-selector">
-    <button type="button" id="recordPrev">‹</button>
+
+    <button
+      type="button"
+      id="recordPrev"
+    >
+      ‹
+    </button>
+
     <span id="recordMonth"></span>
-    <button type="button" id="recordNext">›</button>
+
+    <button
+      type="button"
+      id="recordNext"
+    >
+      ›
+    </button>
+
   </div>
+
 
   <div class="record-summary">
 
@@ -847,6 +926,7 @@ button{
       <small>月間勤務時間</small>
     </div>
 
+
     <div class="big-stat">
       <strong id="recordDays">0日</strong>
       <small>勤務日数</small>
@@ -854,7 +934,16 @@ button{
 
   </div>
 
-  <div class="record-list" id="recordList"></div>
+
+  <div class="record-note">
+    過去の日もあとから登録・変更できるよぉ♡
+  </div>
+
+
+  <div
+    class="record-list"
+    id="recordList"
+  ></div>
 
 </section>
 
@@ -867,19 +956,43 @@ button{
 
   <div class="sub-header">
     <h2>おきゅうりょう</h2>
-    <span>💰</span>
+    <span class="sub-icon">💰</span>
   </div>
+
 
   <div class="month-selector">
-    <button type="button" id="salaryPrev">‹</button>
+
+    <button
+      type="button"
+      id="salaryPrev"
+    >
+      ‹
+    </button>
+
     <span id="salaryMonth"></span>
-    <button type="button" id="salaryNext">›</button>
+
+    <button
+      type="button"
+      id="salaryNext"
+    >
+      ›
+    </button>
+
   </div>
 
+
   <div class="salary-hero">
-    <small>勤務記録からのお給料みこみ</small>
-    <strong id="salaryEstimate">¥0</strong>
+
+    <small>
+      勤務記録からのお給料みこみ
+    </small>
+
+    <strong id="salaryEstimate">
+      ¥0
+    </strong>
+
   </div>
+
 
   <div class="salary-table">
 
@@ -910,7 +1023,12 @@ button{
 
   </div>
 
-  <button type="button" class="camera-button" id="cameraButton">
+
+  <button
+    type="button"
+    class="camera-button"
+    id="cameraButton"
+  >
     📷 給与明細を登録
   </button>
 
@@ -925,8 +1043,9 @@ button{
 
   <div class="sub-header">
     <h2>せってい</h2>
-    <span>⚙️</span>
+    <span class="sub-icon">⚙️</span>
   </div>
+
 
   <div class="settings-card">
 
@@ -935,15 +1054,18 @@ button{
       <small>10:00〜15:00</small>
     </div>
 
+
     <div class="setting-row">
       🍱 固定休憩<br>
       <small>12:00〜13:00</small>
     </div>
 
+
     <div class="setting-row">
       💰 時給<br>
       <small>¥1,250</small>
     </div>
+
 
     <div class="setting-row">
       🎯 月間目標<br>
@@ -958,27 +1080,46 @@ button{
 
 
 <!-- ======================
-     ナビ
+     下ナビ
 ====================== -->
 
 <nav class="bottom-nav">
 
-  <button type="button" class="nav-button active" data-screen="todayScreen">
+  <button
+    type="button"
+    class="nav-button active"
+    data-screen="todayScreen"
+  >
     <span>⌂</span>
     きょう
   </button>
 
-  <button type="button" class="nav-button" data-screen="recordScreen">
+
+  <button
+    type="button"
+    class="nav-button"
+    data-screen="recordScreen"
+  >
     <span>▣</span>
     きろく
   </button>
 
-  <button type="button" class="nav-button" data-screen="salaryScreen">
+
+  <button
+    type="button"
+    class="nav-button"
+    data-screen="salaryScreen"
+  >
     <span>💰</span>
     おきゅうりょう
   </button>
 
-  <button type="button" class="nav-button" data-screen="settingsScreen">
+
+  <button
+    type="button"
+    class="nav-button"
+    data-screen="settingsScreen"
+  >
     <span>⚙️</span>
     せってい
   </button>
@@ -989,14 +1130,16 @@ button{
 <script>
 
 /* =========================
-   基本設定
+   設定
 ========================= */
 
 const WAGE = 1250;
 const GOAL_HOURS = 80;
 const GOAL_DAYS = 20;
 
+
 const PLAN_DATA = {
+
   morning:{
     label:"午前まで",
     hours:2,
@@ -1014,15 +1157,24 @@ const PLAN_DATA = {
     hours:0,
     reply:"きょうはのんびりしよぉ〜♡"
   }
+
 };
 
+
 const BUBBLES = [
+
   "えへへぇ〜♡",
+
   "しおん〜💕",
+
   "ぴこぴこっ💕",
+
   "なでなで<br>されたぁ♡",
+
   "のあたんも<br>うれしいのですぅ〜♡",
+
   "いっしょに<br>いるよぉ〜💕"
+
 ];
 
 
@@ -1032,19 +1184,29 @@ const BUBBLES = [
 
 const now = new Date();
 
-let recordYear = now.getFullYear();
-let recordMonth = now.getMonth();
+let recordYear =
+  now.getFullYear();
 
-let salaryYear = now.getFullYear();
-let salaryMonth = now.getMonth();
+let recordMonth =
+  now.getMonth();
+
+let salaryYear =
+  now.getFullYear();
+
+let salaryMonth =
+  now.getMonth();
 
 
 function dateKey(date){
 
   return [
     date.getFullYear(),
-    String(date.getMonth()+1).padStart(2,"0"),
-    String(date.getDate()).padStart(2,"0")
+    String(
+      date.getMonth()+1
+    ).padStart(2,"0"),
+    String(
+      date.getDate()
+    ).padStart(2,"0")
   ].join("-");
 
 }
@@ -1052,24 +1214,33 @@ function dateKey(date){
 
 function todayKey(){
 
-  return dateKey(new Date());
+  return dateKey(
+    new Date()
+  );
 
 }
 
 
 /* =========================
-   保存
+   DB
 ========================= */
 
 function loadRecords(){
 
   try{
+
     return JSON.parse(
-      localStorage.getItem("noatanWorkRecords")
+      localStorage.getItem(
+        "noatanWorkRecords"
+      )
     ) || {};
+
   }
+
   catch{
+
     return {};
+
   }
 
 }
@@ -1086,17 +1257,97 @@ function saveRecords(records){
 
 
 /* =========================
+   月間集計
+========================= */
+
+function getMonthStats(
+  year,
+  month
+){
+
+  const records =
+    loadRecords();
+
+  let hours = 0;
+  let days = 0;
+
+
+  Object.entries(
+    records
+  ).forEach(
+    ([key,value])=>{
+
+      const parts =
+        key.split("-");
+
+      const y =
+        Number(parts[0]);
+
+      const m =
+        Number(parts[1])-1;
+
+
+      if(
+        y === year &&
+        m === month
+      ){
+
+        const h =
+          Number(
+            value.hours
+          ) || 0;
+
+        hours += h;
+
+
+        if(
+          value.plan !== "off"
+          &&
+          h > 0
+        ){
+
+          days++;
+
+        }
+
+      }
+
+    }
+  );
+
+
+  return{
+
+    hours:hours,
+
+    days:days,
+
+    salary:
+      hours * WAGE
+
+  };
+
+}
+
+
+/* =========================
    今日
 ========================= */
 
 function renderToday(){
 
-  const d = new Date();
+  const d =
+    new Date();
+
 
   const weekdays =
     ["日","月","火","水","木","金","土"];
 
-  document.getElementById("todayDate").textContent =
+
+  document.getElementById(
+    "todayDate"
+  ).textContent =
+
     "📅 " +
     (d.getMonth()+1) +
     "月" +
@@ -1106,28 +1357,58 @@ function renderToday(){
     "）";
 
 
-  const records = loadRecords();
+  const records =
+    loadRecords();
 
-  const saved = records[todayKey()];
+
+  const saved =
+    records[
+      todayKey()
+    ];
 
 
   document
-    .querySelectorAll(".work-card")
-    .forEach(card=>{
+    .querySelectorAll(
+      ".work-card"
+    )
+    .forEach(
+      card=>{
 
-      card.classList.toggle(
-        "selected",
-        saved &&
-        saved.plan === card.dataset.plan
-      );
+        card.classList.toggle(
+          "selected",
+          Boolean(
+            saved &&
+            saved.plan ===
+            card.dataset.plan
+          )
+        );
 
-    });
+      }
+    );
 
 
-  if(saved){
+  const reply =
+    document.getElementById(
+      "reply"
+    );
 
-    document.getElementById("reply").textContent =
-      PLAN_DATA[saved.plan].reply;
+
+  if(
+    saved &&
+    PLAN_DATA[saved.plan]
+  ){
+
+    reply.textContent =
+      PLAN_DATA[
+        saved.plan
+      ].reply;
+
+  }
+
+  else{
+
+    reply.textContent =
+      "ぽちっと選んでねぇ♡";
 
   }
 
@@ -1135,96 +1416,70 @@ function renderToday(){
 
 
 /* =========================
-   勤務選択
+   今日の勤務を選択
 ========================= */
 
 document
-  .querySelectorAll(".work-card")
-  .forEach(card=>{
+  .querySelectorAll(
+    ".work-card"
+  )
+  .forEach(
+    card=>{
 
-    card.addEventListener("click",()=>{
+      card.addEventListener(
+        "click",
+        ()=>{
 
-      const plan = card.dataset.plan;
-
-      const records = loadRecords();
-
-      records[todayKey()] = {
-        plan:plan,
-        hours:PLAN_DATA[plan].hours
-      };
-
-      saveRecords(records);
-
-      renderToday();
-      renderHomeSummary();
-
-      document.getElementById("reply").textContent =
-        PLAN_DATA[plan].reply;
-
-      heartBurst(12);
-
-    });
-
-  });
+          const plan =
+            card.dataset.plan;
 
 
-/* =========================
-   月間集計
-========================= */
-
-function getMonthStats(year,month){
-
-  const records = loadRecords();
-
-  let hours = 0;
-  let days = 0;
+          const records =
+            loadRecords();
 
 
-  Object.entries(records).forEach(
-    ([key,value])=>{
+          records[
+            todayKey()
+          ] = {
 
-      const parts = key.split("-");
+            plan:plan,
 
-      const y = Number(parts[0]);
-      const m = Number(parts[1])-1;
+            hours:
+              PLAN_DATA[
+                plan
+              ].hours
+
+          };
 
 
-      if(
-        y === year &&
-        m === month
-      ){
+          saveRecords(
+            records
+          );
 
-        hours += Number(value.hours) || 0;
 
-        if(
-          value.plan !== "off" &&
-          Number(value.hours) > 0
-        ){
-          days++;
+          renderToday();
+
+          renderHomeSummary();
+
+
+          heartBurst(12);
+
         }
-
-      }
+      );
 
     }
   );
 
 
-  return {
-    hours,
-    days,
-    salary:hours * WAGE
-  };
-
-}
-
-
 /* =========================
-   ホーム集計
+   ホーム月間
 ========================= */
 
 function renderHomeSummary(){
 
-  const d = new Date();
+  const d =
+    new Date();
+
 
   const stats =
     getMonthStats(
@@ -1233,21 +1488,33 @@ function renderHomeSummary(){
     );
 
 
-  document.getElementById("homeMonthTitle").textContent =
+  document.getElementById(
+    "homeMonthTitle"
+  ).textContent =
+
     "🌸 " +
     (d.getMonth()+1) +
     "月のおしごと 🌸";
 
 
-  document.getElementById("homeHours").textContent =
+  document.getElementById(
+    "homeHours"
+  ).textContent =
+
     stats.hours + "h";
 
 
-  document.getElementById("homeDays").textContent =
+  document.getElementById(
+    "homeDays"
+  ).textContent =
+
     stats.days + "日";
 
 
-  document.getElementById("homeSalary").textContent =
+  document.getElementById(
+    "homeSalary"
+  ).textContent =
+
     "¥" +
     stats.salary.toLocaleString();
 
@@ -1255,16 +1522,26 @@ function renderHomeSummary(){
   const progress =
     Math.min(
       100,
-      stats.hours / GOAL_HOURS * 100
+      stats.hours /
+      GOAL_HOURS *
+      100
     );
 
 
-  document.getElementById("homeProgress").style.width =
+  document.getElementById(
+    "homeProgress"
+  ).style.width =
+
     progress + "%";
 
 
-  document.getElementById("homeProgressText").textContent =
-    Math.round(progress) + "%";
+  document.getElementById(
+    "homeProgressText"
+  ).textContent =
+
+    Math.round(
+      progress
+    ) + "%";
 
 }
 
@@ -1274,118 +1551,168 @@ function renderHomeSummary(){
 ========================= */
 
 const noatanButton =
-  document.getElementById("noatanButton");
+  document.getElementById(
+    "noatanButton"
+  );
 
 
-noatanButton.addEventListener("click",()=>{
+noatanButton.addEventListener(
+  "click",
+  ()=>{
 
-  noatanButton.classList.remove("bounce");
-
-  void noatanButton.offsetWidth;
-
-  noatanButton.classList.add("bounce");
-
-
-  const bubble =
-    BUBBLES[
-      Math.floor(
-        Math.random()*BUBBLES.length
-      )
-    ];
+    noatanButton
+      .classList
+      .remove(
+        "bounce"
+      );
 
 
-  document.getElementById("bubble").innerHTML =
-    bubble;
+    void noatanButton.offsetWidth;
 
 
-  /* ただただハート乱舞 */
+    noatanButton
+      .classList
+      .add(
+        "bounce"
+      );
 
-  heartBurst(28);
 
-});
+    document.getElementById(
+      "bubble"
+    ).innerHTML =
+
+      BUBBLES[
+        Math.floor(
+          Math.random() *
+          BUBBLES.length
+        )
+      ];
 
 
-function heartBurst(amount){
+    /* ただただハート乱舞 */
+
+    heartBurst(28);
+
+  }
+);
+
+
+function heartBurst(
+  amount
+){
 
   const area =
-    document.getElementById("noatanArea");
+    document.getElementById(
+      "noatanArea"
+    );
 
 
   const hearts =
-    ["♡","♥","❤","💕","💗","💖"];
+    [
+      "♡",
+      "♥",
+      "❤",
+      "💕",
+      "💗",
+      "💖"
+    ];
 
 
-  for(let i=0;i<amount;i++){
+  for(
+    let i=0;
+    i<amount;
+    i++
+  ){
 
-    setTimeout(()=>{
+    setTimeout(
+      ()=>{
 
-      const heart =
-        document.createElement("div");
-
-
-      heart.className =
-        "flying-heart";
-
-
-      heart.textContent =
-        hearts[
-          Math.floor(
-            Math.random()*hearts.length
-          )
-        ];
+        const heart =
+          document.createElement(
+            "div"
+          );
 
 
-      heart.style.left =
-        (35 + Math.random()*30) + "%";
+        heart.className =
+          "flying-heart";
 
 
-      heart.style.top =
-        (38 + Math.random()*35) + "%";
+        heart.textContent =
+          hearts[
+            Math.floor(
+              Math.random() *
+              hearts.length
+            )
+          ];
 
 
-      const x =
-        -150 + Math.random()*300;
+        heart.style.left =
+          (
+            35 +
+            Math.random()*30
+          ) + "%";
 
 
-      const y =
-        -80 - Math.random()*190;
+        heart.style.top =
+          (
+            38 +
+            Math.random()*35
+          ) + "%";
 
 
-      const r =
-        -50 + Math.random()*100;
+        const x =
+          -150 +
+          Math.random()*300;
 
 
-      heart.style.setProperty(
-        "--x",
-        x+"px"
-      );
+        const y =
+          -80 -
+          Math.random()*190;
 
 
-      heart.style.setProperty(
-        "--y",
-        y+"px"
-      );
+        const r =
+          -50 +
+          Math.random()*100;
 
 
-      heart.style.setProperty(
-        "--r",
-        r+"deg"
-      );
+        heart.style.setProperty(
+          "--x",
+          x+"px"
+        );
 
 
-      heart.style.fontSize =
-        (16 + Math.random()*18) + "px";
+        heart.style.setProperty(
+          "--y",
+          y+"px"
+        );
 
 
-      area.appendChild(heart);
+        heart.style.setProperty(
+          "--r",
+          r+"deg"
+        );
 
 
-      setTimeout(
-        ()=>heart.remove(),
-        1700
-      );
+        heart.style.fontSize =
+          (
+            16 +
+            Math.random()*18
+          ) + "px";
 
-    },i*24);
+
+        area.appendChild(
+          heart
+        );
+
+
+        setTimeout(
+          ()=>heart.remove(),
+          1700
+        );
+
+      },
+      i*24
+    );
 
   }
 
@@ -1397,62 +1724,103 @@ function heartBurst(amount){
 ========================= */
 
 document
-  .querySelectorAll(".nav-button")
-  .forEach(button=>{
+  .querySelectorAll(
+    ".nav-button"
+  )
+  .forEach(
+    button=>{
 
-    button.addEventListener("click",()=>{
+      button.addEventListener(
+        "click",
+        ()=>{
 
-      document
-        .querySelectorAll(".screen")
-        .forEach(screen=>{
-          screen.classList.remove("active");
-        });
+          document
+            .querySelectorAll(
+              ".screen"
+            )
+            .forEach(
+              screen=>{
 
+                screen.classList.remove(
+                  "active"
+                );
 
-      document
-        .getElementById(
-          button.dataset.screen
-        )
-        .classList.add("active");
-
-
-      document
-        .querySelectorAll(".nav-button")
-        .forEach(nav=>{
-          nav.classList.remove("active");
-        });
-
-
-      button.classList.add("active");
+              }
+            );
 
 
-      if(
-        button.dataset.screen ===
-        "recordScreen"
-      ){
-        renderRecords();
-      }
+          document
+            .getElementById(
+              button.dataset.screen
+            )
+            .classList.add(
+              "active"
+            );
 
 
-      if(
-        button.dataset.screen ===
-        "salaryScreen"
-      ){
-        renderSalary();
-      }
+          document
+            .querySelectorAll(
+              ".nav-button"
+            )
+            .forEach(
+              nav=>{
 
-    });
+                nav.classList.remove(
+                  "active"
+                );
 
-  });
+              }
+            );
+
+
+          button.classList.add(
+            "active"
+          );
+
+
+          window.scrollTo(
+            0,
+            0
+          );
+
+
+          if(
+            button.dataset.screen ===
+            "recordScreen"
+          ){
+
+            renderRecords();
+
+          }
+
+
+          if(
+            button.dataset.screen ===
+            "salaryScreen"
+          ){
+
+            renderSalary();
+
+          }
+
+        }
+      );
+
+    }
+  );
 
 
 /* =========================
    記録画面
+   ★1日〜末日を全部表示
 ========================= */
 
 function renderRecords(){
 
-  document.getElementById("recordMonth").textContent =
+  document.getElementById(
+    "recordMonth"
+  ).textContent =
+
     recordYear +
     "年 " +
     (recordMonth+1) +
@@ -1466,16 +1834,24 @@ function renderRecords(){
     );
 
 
-  document.getElementById("recordHours").textContent =
+  document.getElementById(
+    "recordHours"
+  ).textContent =
+
     stats.hours + "h";
 
 
-  document.getElementById("recordDays").textContent =
+  document.getElementById(
+    "recordDays"
+  ).textContent =
+
     stats.days + "日";
 
 
   const list =
-    document.getElementById("recordList");
+    document.getElementById(
+      "recordList"
+    );
 
 
   list.innerHTML = "";
@@ -1493,6 +1869,22 @@ function renderRecords(){
     ).getDate();
 
 
+  const today =
+    new Date();
+
+
+  const weekdays =
+    [
+      "日",
+      "月",
+      "火",
+      "水",
+      "木",
+      "金",
+      "土"
+    ];
+
+
   for(
     let day=1;
     day<=daysInMonth;
@@ -1508,152 +1900,326 @@ function renderRecords(){
 
 
     const key =
-      dateKey(date);
+      dateKey(
+        date
+      );
 
 
     const record =
-      records[key];
+      records[key] || null;
 
 
-    if(!record){
-      continue;
-    }
+    const isToday =
+      key === todayKey();
+
+
+    const isFuture =
+      date.getFullYear() >
+      today.getFullYear()
+
+      ||
+
+      (
+        date.getFullYear() ===
+        today.getFullYear()
+
+        &&
+
+        date.getMonth() >
+        today.getMonth()
+      )
+
+      ||
+
+      (
+        date.getFullYear() ===
+        today.getFullYear()
+
+        &&
+
+        date.getMonth() ===
+        today.getMonth()
+
+        &&
+
+        date.getDate() >
+        today.getDate()
+      );
+
+
+    const currentPlan =
+      record
+      ? record.plan
+      : "";
+
+
+    const hoursText =
+      record &&
+      PLAN_DATA[
+        record.plan
+      ]
+
+      ? PLAN_DATA[
+          record.plan
+        ].hours + "h"
+
+      : "—";
 
 
     const row =
-      document.createElement("div");
+      document.createElement(
+        "div"
+      );
 
 
     row.className =
       "record-row";
 
 
+    if(isToday){
+
+      row.classList.add(
+        "today"
+      );
+
+    }
+
+
+    if(
+      isFuture &&
+      !record
+    ){
+
+      row.classList.add(
+        "future-row"
+      );
+
+    }
+
+
     row.innerHTML = `
+
       <div class="record-date">
+
         ${recordMonth+1}/${day}
+
+        <small>
+          (${weekdays[date.getDay()]})
+        </small>
+
       </div>
 
-      <div class="record-type">
-        ${PLAN_DATA[record.plan].label}
+
+      <div>
 
         <select
           class="edit-select"
           data-date="${key}"
+          aria-label="${recordMonth+1}月${day}日の勤務"
         >
-          <option value="morning"
-            ${record.plan==="morning"?"selected":""}>
-            午前まで
+
+          <option
+            value=""
+            ${currentPlan==="" ? "selected" : ""}
+          >
+            未登録
           </option>
 
-          <option value="full"
-            ${record.plan==="full"?"selected":""}>
-            午後まで
+
+          <option
+            value="morning"
+            ${currentPlan==="morning" ? "selected" : ""}
+          >
+            午前まで（2h）
           </option>
 
-          <option value="off"
-            ${record.plan==="off"?"selected":""}>
+
+          <option
+            value="full"
+            ${currentPlan==="full" ? "selected" : ""}
+          >
+            午後まで（4h）
+          </option>
+
+
+          <option
+            value="off"
+            ${currentPlan==="off" ? "selected" : ""}
+          >
             おやすみ
           </option>
+
         </select>
+
       </div>
+
 
       <div class="record-hours">
-        ${record.hours}h
+        ${hoursText}
       </div>
+
     `;
 
 
-    list.appendChild(row);
-
-  }
-
-
-  if(list.children.length===0){
-
-    list.innerHTML = `
-      <div class="big-stat">
-        まだ記録がないよぉ♡
-      </div>
-    `;
+    list.appendChild(
+      row
+    );
 
   }
 
 
   list
-    .querySelectorAll(".edit-select")
-    .forEach(select=>{
+    .querySelectorAll(
+      ".edit-select"
+    )
+    .forEach(
+      select=>{
 
-      select.addEventListener(
-        "change",
-        ()=>{
+        select.addEventListener(
+          "change",
+          ()=>{
 
-          const records =
-            loadRecords();
-
-          const plan =
-            select.value;
-
-
-          records[
-            select.dataset.date
-          ] = {
-            plan,
-            hours:PLAN_DATA[plan].hours
-          };
+            const records =
+              loadRecords();
 
 
-          saveRecords(records);
+            const key =
+              select.dataset.date;
 
-          renderRecords();
-          renderHomeSummary();
 
-        }
-      );
+            const plan =
+              select.value;
 
-    });
+
+            /*
+              未登録へ戻す
+              → その日の記録削除
+            */
+
+            if(
+              plan === ""
+            ){
+
+              delete records[key];
+
+            }
+
+            else{
+
+              records[key] = {
+
+                plan:plan,
+
+                hours:
+                  PLAN_DATA[
+                    plan
+                  ].hours
+
+              };
+
+            }
+
+
+            saveRecords(
+              records
+            );
+
+
+            /*
+              全画面の数字を更新
+            */
+
+            renderRecords();
+
+            renderHomeSummary();
+
+
+            /*
+              今日を変更した場合は
+              ホーム3択も更新
+            */
+
+            if(
+              key === todayKey()
+            ){
+
+              renderToday();
+
+            }
+
+          }
+        );
+
+      }
+    );
 
 }
 
 
-document
-  .getElementById("recordPrev")
-  .addEventListener("click",()=>{
+/* =========================
+   記録 月移動
+========================= */
+
+document.getElementById(
+  "recordPrev"
+).addEventListener(
+  "click",
+  ()=>{
 
     recordMonth--;
 
-    if(recordMonth<0){
-      recordMonth=11;
+
+    if(
+      recordMonth < 0
+    ){
+
+      recordMonth = 11;
       recordYear--;
+
     }
+
 
     renderRecords();
 
-  });
+  }
+);
 
 
-document
-  .getElementById("recordNext")
-  .addEventListener("click",()=>{
+document.getElementById(
+  "recordNext"
+).addEventListener(
+  "click",
+  ()=>{
 
     recordMonth++;
 
-    if(recordMonth>11){
-      recordMonth=0;
+
+    if(
+      recordMonth > 11
+    ){
+
+      recordMonth = 0;
       recordYear++;
+
     }
+
 
     renderRecords();
 
-  });
+  }
+);
 
 
 /* =========================
-   給与画面
+   給与
 ========================= */
 
 function renderSalary(){
 
-  document.getElementById("salaryMonth").textContent =
+  document.getElementById(
+    "salaryMonth"
+  ).textContent =
+
     salaryYear +
     "年 " +
     (salaryMonth+1) +
@@ -1667,68 +2233,95 @@ function renderSalary(){
     );
 
 
-  document.getElementById("salaryEstimate").textContent =
+  document.getElementById(
+    "salaryEstimate"
+  ).textContent =
+
     "¥" +
     stats.salary.toLocaleString();
 
 }
 
 
-document
-  .getElementById("salaryPrev")
-  .addEventListener("click",()=>{
+/* =========================
+   給与 月移動
+========================= */
+
+document.getElementById(
+  "salaryPrev"
+).addEventListener(
+  "click",
+  ()=>{
 
     salaryMonth--;
 
-    if(salaryMonth<0){
-      salaryMonth=11;
+
+    if(
+      salaryMonth < 0
+    ){
+
+      salaryMonth = 11;
       salaryYear--;
+
     }
+
 
     renderSalary();
 
-  });
+  }
+);
 
 
-document
-  .getElementById("salaryNext")
-  .addEventListener("click",()=>{
+document.getElementById(
+  "salaryNext"
+).addEventListener(
+  "click",
+  ()=>{
 
     salaryMonth++;
 
-    if(salaryMonth>11){
-      salaryMonth=0;
+
+    if(
+      salaryMonth > 11
+    ){
+
+      salaryMonth = 0;
       salaryYear++;
+
     }
+
 
     renderSalary();
 
-  });
+  }
+);
 
 
-/*
-  v1では給与明細ボタンの見た目まで。
-  次段階でiPhoneカメラ
-  →給与明細解析
-  →Noah DBへ接続。
-*/
+/* =========================
+   給与明細
+   次段階でNoah接続
+========================= */
 
-document
-  .getElementById("cameraButton")
-  .addEventListener("click",()=>{
+document.getElementById(
+  "cameraButton"
+).addEventListener(
+  "click",
+  ()=>{
 
     alert(
       "📷 給与明細の読み取りは次にNoahとつなぐよぉ♡"
     );
 
-  });
+  }
+);
 
 
 /* =========================
-   初期表示
+   初期化
 ========================= */
 
 renderToday();
+
 renderHomeSummary();
 
 </script>
