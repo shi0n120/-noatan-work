@@ -3,505 +3,1295 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#120507">
+<meta name="theme-color" content="#100305">
 <title>のあたんとおしごと。</title>
 
 <style>
 *{box-sizing:border-box}
+
 :root{
-  --bg:#0d0305;
-  --panel:#1a090c;
-  --panel2:#260d12;
-  --red:#d7354f;
-  --red2:#ff6375;
-  --gold:#e7b55c;
+  --bg:#0b0204;
+  --panel:#19070a;
+  --red:#d8324c;
+  --red2:#ff6276;
+  --gold:#e8b65e;
   --cream:#fff0d5;
-  --muted:#c7aa9d;
+  --muted:#cba996;
+  --navH:76px;
 }
-body{
+
+html,body{
   margin:0;
-  background:
-    radial-gradient(circle at 50% 12%,#48101b 0,#1a070b 28%,#090203 65%);
+  padding:0;
+  background:#090203;
   color:var(--cream);
   font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;
 }
+
+body{
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 50% 8%,#50101d 0,#1b070b 27%,#090203 65%);
+}
+
 .app{
+  width:100%;
   max-width:430px;
   min-height:100vh;
   margin:auto;
-  padding:24px 14px 105px;
-}
-.header{text-align:center}
-h1{
-  margin:5px 0 2px;
-  font-size:30px;
-  color:#ffd48a;
-  text-shadow:0 0 15px #b42639;
-}
-.subtitle{
-  color:#f09a9f;
-  font-size:13px;
-  margin-bottom:3px;
+
+  /* 下ナビにコンテンツを食われない */
+  padding:
+    20px
+    14px
+    calc(var(--navH) + 55px + env(safe-area-inset-bottom));
 }
 
-/* のあたん */
+/* ===== ヘッダー ===== */
+
+.header{
+  text-align:center;
+}
+
+h1{
+  margin:4px 0 2px;
+  color:#ffd486;
+  font-size:28px;
+  line-height:1.2;
+  text-shadow:
+    0 0 12px rgba(207,42,62,.7);
+}
+
+.subtitle{
+  margin-top:5px;
+  font-size:12px;
+  color:#ef9da4;
+}
+
+/* ===== のあたん ===== */
+
 .noatan-wrap{
-  height:330px;
+  height:285px;
   position:relative;
   display:flex;
-  justify-content:center;
   align-items:flex-end;
-  overflow:hidden;
-}
-.noatan{
-  width:310px;
-  max-height:325px;
-  object-fit:contain;
-  filter:drop-shadow(0 0 16px rgba(235,45,70,.38));
-  animation:piko 3s ease-in-out infinite;
-  position:relative;
-  z-index:2;
-}
-@keyframes piko{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-5px)}
-}
-.heart{
-  position:absolute;
-  color:#ff6173;
-  font-size:25px;
-  animation:heart 2.4s ease-out forwards;
-  z-index:3;
-  pointer-events:none;
-}
-@keyframes heart{
-  0%{opacity:0;transform:translateY(15px) scale(.5)}
-  20%{opacity:1}
-  100%{opacity:0;transform:translateY(-120px) scale(1.5) rotate(15deg)}
+  justify-content:center;
+  overflow:visible;
 }
 
-/* 今日 */
+.noatan{
+  width:270px;
+  max-height:280px;
+  object-fit:contain;
+  position:relative;
+  z-index:2;
+
+  filter:
+    drop-shadow(0 0 11px rgba(255,62,86,.35));
+
+  animation:piko 3s ease-in-out infinite;
+}
+
+@keyframes piko{
+  0%,100%{
+    transform:translateY(0) rotate(0deg);
+  }
+  50%{
+    transform:translateY(-4px) rotate(.5deg);
+  }
+}
+
+.heart{
+  position:absolute;
+  z-index:5;
+  color:#ff5c73;
+  pointer-events:none;
+  animation:heartFly 2.3s ease-out forwards;
+}
+
+@keyframes heartFly{
+  0%{
+    opacity:0;
+    transform:translateY(15px) scale(.5);
+  }
+  20%{
+    opacity:1;
+  }
+  100%{
+    opacity:0;
+    transform:
+      translateY(-110px)
+      scale(1.45)
+      rotate(15deg);
+  }
+}
+
+/* ===== 今日カード ===== */
+
 .today-box{
-  background:linear-gradient(145deg,rgba(51,18,21,.95),rgba(20,7,9,.96));
-  border:1px solid #8b5532;
-  border-radius:22px;
-  padding:15px;
-  text-align:center;
-  box-shadow:inset 0 0 20px rgba(208,78,58,.08);
+  position:relative;
+  z-index:4;
+
+  padding:14px 10px 12px;
+
+  border:1px solid #8b5837;
+  border-radius:21px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(53,16,22,.97),
+      rgba(19,6,8,.98)
+    );
+
+  box-shadow:
+    inset 0 0 20px rgba(255,105,65,.05);
 }
+
 .date{
-  font-size:18px;
-  color:#e9bb77;
-  font-weight:700;
+  text-align:center;
+  color:#efbf76;
+  font-size:17px;
+  font-weight:800;
 }
+
 .question{
-  margin-top:9px;
-  font-size:15px;
+  margin:8px 0 11px;
+  text-align:center;
+  font-size:14px;
 }
+
+/* ===== 3択 ===== */
+
 .choices{
   display:grid;
-  grid-template-columns:1fr 1fr 1fr;
-  gap:8px;
-  margin-top:12px;
+  grid-template-columns:repeat(3,1fr);
+  gap:7px;
 }
+
 .choice{
-  min-height:145px;
-  border-radius:18px;
-  border:1px solid #81543b;
-  background:linear-gradient(#361116,#18080a);
+  min-width:0;
+  min-height:125px;
+
+  padding:9px 3px;
+
+  border:1px solid #76503b;
+  border-radius:17px;
+
   color:var(--cream);
-  padding:12px 4px;
-  font-weight:700;
-  position:relative;
-  transition:.18s;
+
+  background:
+    linear-gradient(
+      160deg,
+      #321015,
+      #160608
+    );
+
+  transition:
+    transform .15s,
+    border .15s,
+    box-shadow .15s,
+    background .15s;
 }
-.choice .icon{font-size:27px}
+
+.choice:active{
+  transform:scale(.96);
+}
+
+.choice .icon{
+  font-size:23px;
+  line-height:1;
+}
+
 .choice .label{
-  font-size:16px;
   margin-top:7px;
+  font-size:14px;
+  font-weight:800;
 }
+
 .choice .hours{
-  font-size:31px;
-  color:#ffd17d;
-  margin:3px 0;
+  margin:2px 0;
+  color:#ffd17c;
+  font-size:28px;
+  line-height:1.15;
+  font-weight:900;
 }
+
 .choice small{
-  font-size:11px;
-  color:#d7ae8c;
+  display:block;
+  color:#d3ad91;
+  font-size:10px;
 }
+
+/* 選択時ぴこーん */
+
 .choice.selected{
-  border:2px solid #ffcf70;
-  background:linear-gradient(145deg,#8d1728,#3b0b12);
-  box-shadow:0 0 20px rgba(255,77,91,.55),inset 0 0 18px rgba(255,195,96,.15);
+  border:2px solid #ffd06d;
+
+  background:
+    linear-gradient(
+      150deg,
+      #9b1d31,
+      #4b0d16
+    );
+
+  box-shadow:
+    0 0 9px #ff596b,
+    0 0 22px rgba(255,75,94,.38),
+    inset 0 0 18px rgba(255,198,100,.12);
+
   transform:translateY(-2px);
 }
 
-/* 出退勤 */
-.work-actions{
-  margin:14px 0;
+.choice.selected::after{
+  content:"♡";
+  position:absolute;
+}
+
+.choice{
+  position:relative;
+}
+
+/* ===== 出勤部分 ===== */
+
+.work-panel{
+  margin-top:11px;
   text-align:center;
 }
-.action{
-  width:100%;
-  border:0;
-  border-radius:18px;
-  padding:16px;
-  color:white;
-  font-size:18px;
-  font-weight:800;
-  background:linear-gradient(135deg,#b71835,#ed5265);
-  box-shadow:0 5px 20px rgba(220,30,60,.25);
+
+.work-message{
+  min-height:24px;
+  margin:4px 0 8px;
+
+  color:#ffc0c7;
+  font-size:13px;
 }
-.action:active{transform:scale(.98)}
-#finishBtn{display:none;background:linear-gradient(135deg,#5b3038,#8d4552)}
+
 .timer{
   display:none;
-  font-size:36px;
-  font-weight:800;
-  color:#ffd178;
-  margin:10px;
+
+  margin:3px 0 9px;
+
+  color:#ffd278;
+  font-size:35px;
+  line-height:1.1;
+  font-weight:900;
+
   font-variant-numeric:tabular-nums;
-}
-.work-message{
-  font-size:14px;
-  color:#ffc1c7;
-  min-height:23px;
+
+  text-shadow:
+    0 0 12px rgba(255,170,70,.2);
 }
 
-/* 月間 */
+.action{
+  display:block;
+
+  width:100%;
+  padding:15px;
+
+  border:0;
+  border-radius:17px;
+
+  color:white;
+
+  font-size:18px;
+  font-weight:900;
+
+  background:
+    linear-gradient(
+      135deg,
+      #b81937,
+      #ef5668
+    );
+
+  box-shadow:
+    0 5px 18px rgba(216,34,63,.24);
+}
+
+.action:active{
+  transform:scale(.98);
+}
+
+#finishBtn{
+  display:none;
+
+  background:
+    linear-gradient(
+      135deg,
+      #62313b,
+      #984858
+    );
+}
+
+/* ===== 月間 ===== */
+
 .month{
-  margin-top:15px;
-  border:1px solid #86563b;
-  border-radius:22px;
-  background:linear-gradient(145deg,#200a0e,#100507);
-  padding:17px 14px;
+  margin-top:13px;
+  padding:15px 12px;
+
+  border:1px solid #83543a;
+  border-radius:21px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #21090d,
+      #100406
+    );
 }
+
 .month h2{
+  margin:0 0 14px;
+
   text-align:center;
-  font-size:21px;
+
   color:#efbd72;
-  margin:0 0 16px;
+  font-size:19px;
 }
+
 .stats{
   display:grid;
-  grid-template-columns:1fr 1fr 1fr;
-  text-align:center;
+  grid-template-columns:repeat(3,1fr);
   gap:4px;
-}
-.stat .emoji{font-size:22px}
-.stat strong{
-  display:block;
-  font-size:22px;
-  color:#ffd17b;
-  margin:3px 0;
-}
-.stat small{
-  color:#c9a691;
-  font-size:10px;
-}
-.progress{
-  height:12px;
-  background:#160609;
-  border:1px solid #674235;
-  border-radius:10px;
-  overflow:hidden;
-  margin:18px 0 5px;
-}
-.bar{
-  height:100%;
-  width:0;
-  background:linear-gradient(90deg,#d92d4c,#ff6374);
-  transition:.5s;
-}
-.progress-label{
-  text-align:right;
-  font-size:12px;
-  color:#e3b79c;
-}
-.cheer{
-  margin-top:14px;
-  border:1px solid #674235;
-  border-radius:10px;
-  padding:10px;
+
   text-align:center;
-  color:#f5b7b9;
-  font-size:12px;
 }
 
-/* 下ナビ */
-.nav{
-  position:fixed;
-  bottom:0;
-  left:50%;
-  transform:translateX(-50%);
-  width:100%;
-  max-width:430px;
-  height:82px;
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  background:rgba(17,5,7,.97);
-  border-top:1px solid #75432f;
-  padding-bottom:env(safe-area-inset-bottom);
-  z-index:20;
+.stat{
+  min-width:0;
 }
-.nav button{
-  background:none;
-  border:0;
-  color:#b88f77;
+
+.stat .emoji{
+  font-size:20px;
+}
+
+.stat strong{
+  display:block;
+
+  margin:3px 0;
+
+  color:#ffd17b;
+
+  font-size:20px;
+  line-height:1.2;
+}
+
+.stat small{
+  display:block;
+
+  color:#c9a28e;
+  font-size:9px;
+  line-height:1.3;
+}
+
+.progress{
+  height:11px;
+
+  margin:16px 0 5px;
+
+  overflow:hidden;
+
+  border:1px solid #684335;
+  border-radius:10px;
+
+  background:#120507;
+}
+
+.bar{
+  width:0;
+  height:100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      #d92e4c,
+      #ff6375
+    );
+
+  transition:width .4s;
+}
+
+.progress-label{
+  text-align:right;
+  color:#e2b79d;
   font-size:11px;
 }
+
+.cheer{
+  margin-top:12px;
+  padding:9px 7px;
+
+  border:1px solid #654034;
+  border-radius:9px;
+
+  color:#f3b4b9;
+
+  text-align:center;
+  font-size:11px;
+}
+
+/* ===== 下ナビ ===== */
+
+.nav{
+  position:fixed;
+
+  left:50%;
+  bottom:0;
+
+  transform:translateX(-50%);
+
+  z-index:50;
+
+  width:100%;
+  max-width:430px;
+
+  height:
+    calc(
+      var(--navH) +
+      env(safe-area-inset-bottom)
+    );
+
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+
+  padding-bottom:
+    env(safe-area-inset-bottom);
+
+  border-top:1px solid #75442f;
+
+  background:
+    rgba(15,4,6,.97);
+
+  backdrop-filter:blur(15px);
+  -webkit-backdrop-filter:blur(15px);
+}
+
+.nav button{
+  border:0;
+  background:none;
+
+  color:#ad8773;
+
+  font-size:10px;
+}
+
 .nav button span{
   display:block;
-  font-size:25px;
-  margin-bottom:3px;
+
+  margin-bottom:2px;
+
+  font-size:23px;
 }
-.nav .active{
-  color:#fff0c7;
-  text-shadow:0 0 10px #ff3655;
+
+.nav button.active{
+  color:#fff0c9;
+
+  text-shadow:
+    0 0 9px #ff3855;
+}
+
+/* 小さい画面 */
+
+@media(max-height:700px){
+
+  .noatan-wrap{
+    height:245px;
+  }
+
+  .noatan{
+    width:235px;
+    max-height:240px;
+  }
+
+  h1{
+    font-size:25px;
+  }
 }
 </style>
 </head>
 
 <body>
-<div class="app">
+
+<main class="app">
 
 <header class="header">
+
   <h1>のあたんとおしごと。</h1>
-  <div class="subtitle">きょうもいっしょに、えらいのあたん♪</div>
+
+  <div class="subtitle">
+    きょうもいっしょに、えらいのあたん♪
+  </div>
+
 </header>
 
+
 <div class="noatan-wrap" id="noatanWrap">
+
   <img
     class="noatan"
     src="AF24F85F-2C49-442D-A387-182B2706458C.png"
-    alt="のあたん">
+    alt="のあたん"
+  >
+
 </div>
 
+
 <section class="today-box">
+
   <div class="date" id="date"></div>
-  <div class="question">きょうはどこまでおしごとしますかぁ？💕</div>
+
+  <div class="question">
+    きょうはどこまでおしごとしますかぁ？💕
+  </div>
+
 
   <div class="choices">
-    <button class="choice" data-type="morning" onclick="selectPlan('morning')">
+
+    <button
+      class="choice"
+      data-type="morning"
+      onclick="selectPlan('morning')"
+    >
+
       <div class="icon">☀️</div>
-      <div class="label">午前まで</div>
-      <div class="hours">2h</div>
-      <small>〜12:00まで</small>
+
+      <div class="label">
+        午前まで
+      </div>
+
+      <div class="hours">
+        2h
+      </div>
+
+      <small>
+        〜12:00まで
+      </small>
+
     </button>
 
-    <button class="choice" data-type="full" onclick="selectPlan('full')">
+
+    <button
+      class="choice"
+      data-type="full"
+      onclick="selectPlan('full')"
+    >
+
       <div class="icon">🌅</div>
-      <div class="label">午後まで</div>
-      <div class="hours">4h</div>
-      <small>〜15:00まで</small>
+
+      <div class="label">
+        午後まで
+      </div>
+
+      <div class="hours">
+        4h
+      </div>
+
+      <small>
+        〜15:00まで
+      </small>
+
     </button>
 
-    <button class="choice" data-type="off" onclick="selectPlan('off')">
+
+    <button
+      class="choice"
+      data-type="off"
+      onclick="selectPlan('off')"
+    >
+
       <div class="icon">🌙</div>
-      <div class="label">きょうは</div>
-      <div class="hours" style="font-size:18px">おやすみ</div>
-      <small>すやすや…♡</small>
+
+      <div class="label">
+        きょうは
+      </div>
+
+      <div
+        class="hours"
+        style="font-size:17px;margin-top:8px"
+      >
+        おやすみ
+      </div>
+
+      <small>
+        すやすや…♡
+      </small>
+
     </button>
+
   </div>
+
 </section>
 
-<div class="work-actions">
-  <div class="timer" id="timer">00:00:00</div>
-  <div class="work-message" id="workMessage">勤務予定をえらんでねぇ♡</div>
 
-  <button class="action" id="startBtn" onclick="startWork()">
+<section class="work-panel">
+
+  <div
+    class="timer"
+    id="timer"
+  >
+    00:00:00
+  </div>
+
+  <div
+    class="work-message"
+    id="workMessage"
+  >
+    きょうのおしごとをえらんでねぇ♡
+  </div>
+
+  <button
+    class="action"
+    id="startBtn"
+    onclick="startWork()"
+  >
     ♡ 出勤する ♡
   </button>
 
-  <button class="action" id="finishBtn" onclick="finishWork()">
+  <button
+    class="action"
+    id="finishBtn"
+    onclick="finishWork()"
+  >
     ♡ 退勤する ♡
   </button>
-</div>
 
-<section class="month">
-  <h2>🌸 9月のおしごと 🌸</h2>
-
-  <div class="stats">
-    <div class="stat">
-      <div class="emoji">🕒</div>
-      <strong id="monthHours">0時間</strong>
-      <small>/ 目標 80時間</small>
-    </div>
-
-    <div class="stat">
-      <div class="emoji">📅</div>
-      <strong id="monthDays">0日</strong>
-      <small>/ 目標 20日</small>
-    </div>
-
-    <div class="stat">
-      <div class="emoji">💰</div>
-      <strong id="salary">¥0</strong>
-      <small>お給料みこみ</small>
-    </div>
-  </div>
-
-  <div class="progress">
-    <div class="bar" id="bar"></div>
-  </div>
-  <div class="progress-label" id="percent">0%</div>
-
-  <div class="cheer" id="cheer">
-    💕 のあたん、いっしょにがんばるのですぅ〜💕
-  </div>
 </section>
 
-</div>
+
+<section class="month">
+
+  <h2>
+    🌸 9月のおしごと 🌸
+  </h2>
+
+
+  <div class="stats">
+
+    <div class="stat">
+
+      <div class="emoji">
+        🕒
+      </div>
+
+      <strong id="monthHours">
+        0時間
+      </strong>
+
+      <small>
+        / 目標80時間
+      </small>
+
+    </div>
+
+
+    <div class="stat">
+
+      <div class="emoji">
+        📅
+      </div>
+
+      <strong id="monthDays">
+        0日
+      </strong>
+
+      <small>
+        / 目標20日
+      </small>
+
+    </div>
+
+
+    <div class="stat">
+
+      <div class="emoji">
+        💰
+      </div>
+
+      <strong id="salary">
+        ¥0
+      </strong>
+
+      <small>
+        お給料みこみ
+      </small>
+
+    </div>
+
+  </div>
+
+
+  <div class="progress">
+
+    <div
+      class="bar"
+      id="bar"
+    ></div>
+
+  </div>
+
+  <div
+    class="progress-label"
+    id="percent"
+  >
+    0%
+  </div>
+
+
+  <div
+    class="cheer"
+    id="cheer"
+  >
+    💕 のあたん、いっしょにがんばるのですぅ〜💕
+  </div>
+
+</section>
+
+</main>
+
 
 <nav class="nav">
-  <button class="active"><span>⌂</span>きょう</button>
-  <button><span>▣</span>きろく</button>
-  <button><span>💰</span>おきゅうりょう</button>
-  <button><span>⚙️</span>せってい</button>
+
+  <button class="active">
+    <span>⌂</span>
+    きょう
+  </button>
+
+  <button>
+    <span>▣</span>
+    きろく
+  </button>
+
+  <button>
+    <span>💰</span>
+    おきゅうりょう
+  </button>
+
+  <button>
+    <span>⚙️</span>
+    せってい
+  </button>
+
 </nav>
 
+
 <script>
+
 const HOURLY_WAGE = 1250;
 const MONTH_GOAL_HOURS = 80;
 
-let plan = localStorage.getItem("todayPlan");
-let startedAt = Number(localStorage.getItem("startedAt")) || null;
+let plan = null;
+let startedAt =
+  Number(localStorage.getItem("startedAt")) || null;
+
 let timerLoop = null;
 let heartLoop = null;
 
+
+/* ===== 日付 ===== */
+
 function renderDate(){
+
   const d = new Date();
-  const days = ["日","月","火","水","木","金","土"];
-  date.textContent =
-    `📅 きょうは ${d.getMonth()+1}月${d.getDate()}日（${days[d.getDay()]}）`;
+
+  const days =
+    ["日","月","火","水","木","金","土"];
+
+  document.getElementById("date").textContent =
+    "📅 きょうは " +
+    (d.getMonth()+1) +
+    "月" +
+    d.getDate() +
+    "日（" +
+    days[d.getDay()] +
+    "）";
 }
+
+
+/* ===== 勤務選択 ===== */
 
 function selectPlan(type){
-  plan = type;
-  localStorage.setItem("todayPlan",type);
 
-  document.querySelectorAll(".choice").forEach(x=>{
-    x.classList.toggle("selected",x.dataset.type===type);
-  });
-
-  if(type==="off"){
-    workMessage.textContent="きょうはゆっくりおやすみしよぉ♡";
-    startBtn.style.display="none";
-  }else{
-    workMessage.textContent =
-      type==="morning"
-      ? "12時まで、のあたんとがんばろぉ♡"
-      : "15時まで、いっしょにがんばろぉ♡";
-    if(!startedAt) startBtn.style.display="block";
-  }
-}
-
-function startWork(){
-  if(!plan || plan==="off"){
-    workMessage.textContent="先に勤務予定をえらんでねぇ♡";
+  if(startedAt){
     return;
   }
 
-  startedAt=Date.now();
-  localStorage.setItem("startedAt",startedAt);
+  plan = type;
 
-  startBtn.style.display="none";
-  finishBtn.style.display="block";
-  timer.style.display="block";
+  document
+    .querySelectorAll(".choice")
+    .forEach(button => {
 
-  workMessage.textContent="おしごと開始〜♡ しおんえらいっ";
+      button.classList.toggle(
+        "selected",
+        button.dataset.type === type
+      );
+
+    });
+
+
+  const startBtn =
+    document.getElementById("startBtn");
+
+  const msg =
+    document.getElementById("workMessage");
+
+
+  if(type === "morning"){
+
+    msg.textContent =
+      "12時まで、のあたんといっしょ♡";
+
+    startBtn.style.display = "block";
+
+  }
+
+
+  if(type === "full"){
+
+    msg.textContent =
+      "15時まで、いっしょにがんばろぉ♡";
+
+    startBtn.style.display = "block";
+
+  }
+
+
+  if(type === "off"){
+
+    msg.textContent =
+      "きょうはゆっくりおやすみしよぉ♡";
+
+    startBtn.style.display = "none";
+
+    for(let i=0;i<5;i++){
+      setTimeout(makeHeart,i*160);
+    }
+
+  }
+
+}
+
+
+/* ===== 出勤 ===== */
+
+function startWork(){
+
+  if(!plan){
+
+    document.getElementById(
+      "workMessage"
+    ).textContent =
+      "先に勤務予定をえらんでねぇ♡";
+
+    return;
+  }
+
+
+  if(plan === "off"){
+    return;
+  }
+
+
+  startedAt = Date.now();
+
+  localStorage.setItem(
+    "startedAt",
+    String(startedAt)
+  );
+
+
+  document.getElementById(
+    "startBtn"
+  ).style.display = "none";
+
+
+  document.getElementById(
+    "finishBtn"
+  ).style.display = "block";
+
+
+  document.getElementById(
+    "timer"
+  ).style.display = "block";
+
+
+  document.getElementById(
+    "workMessage"
+  ).textContent =
+    "おしごと開始〜♡ しおんえらいっ";
+
 
   updateTimer();
-  timerLoop=setInterval(updateTimer,1000);
-  heartLoop=setInterval(makeHeart,1100);
 
-  for(let i=0;i<8;i++) setTimeout(makeHeart,i*130);
+
+  timerLoop =
+    setInterval(
+      updateTimer,
+      1000
+    );
+
+
+  heartLoop =
+    setInterval(
+      makeHeart,
+      1200
+    );
+
+
+  for(let i=0;i<8;i++){
+
+    setTimeout(
+      makeHeart,
+      i*120
+    );
+
+  }
+
 }
+
+
+/* ===== タイマー ===== */
 
 function updateTimer(){
-  if(!startedAt)return;
 
-  const diff=Date.now()-startedAt;
-  const h=Math.floor(diff/3600000);
-  const m=Math.floor((diff%3600000)/60000);
-  const s=Math.floor((diff%60000)/1000);
+  if(!startedAt){
+    return;
+  }
 
-  timer.textContent=
-    String(h).padStart(2,"0")+":"+
-    String(m).padStart(2,"0")+":"+
+
+  const diff =
+    Date.now() - startedAt;
+
+
+  const h =
+    Math.floor(
+      diff / 3600000
+    );
+
+
+  const m =
+    Math.floor(
+      (diff % 3600000) /
+      60000
+    );
+
+
+  const s =
+    Math.floor(
+      (diff % 60000) /
+      1000
+    );
+
+
+  document.getElementById(
+    "timer"
+  ).textContent =
+
+    String(h).padStart(2,"0")
+    + ":" +
+
+    String(m).padStart(2,"0")
+    + ":" +
+
     String(s).padStart(2,"0");
+
 }
+
+
+/* ===== 退勤 ===== */
 
 function finishWork(){
-  const diff=Date.now()-startedAt;
-  const hours=diff/3600000;
 
-  let total=Number(localStorage.getItem("monthHours"))||0;
-  let days=Number(localStorage.getItem("monthDays"))||0;
+  if(!startedAt){
+    return;
+  }
 
-  total+=hours;
-  days+=1;
 
-  localStorage.setItem("monthHours",total);
-  localStorage.setItem("monthDays",days);
+  const diff =
+    Date.now() - startedAt;
 
-  localStorage.removeItem("startedAt");
-  startedAt=null;
 
-  clearInterval(timerLoop);
-  clearInterval(heartLoop);
+  const workedHours =
+    diff / 3600000;
 
-  finishBtn.style.display="none";
-  timer.style.display="none";
 
-  workMessage.textContent="おしごとおしまいっ♡ 今日もがんばったねぇ";
+  let totalHours =
+    Number(
+      localStorage.getItem(
+        "monthHours"
+      )
+    ) || 0;
 
-  for(let i=0;i<16;i++)setTimeout(makeHeart,i*90);
+
+  let totalDays =
+    Number(
+      localStorage.getItem(
+        "monthDays"
+      )
+    ) || 0;
+
+
+  totalHours += workedHours;
+  totalDays += 1;
+
+
+  localStorage.setItem(
+    "monthHours",
+    String(totalHours)
+  );
+
+
+  localStorage.setItem(
+    "monthDays",
+    String(totalDays)
+  );
+
+
+  localStorage.removeItem(
+    "startedAt"
+  );
+
+
+  startedAt = null;
+
+
+  clearInterval(
+    timerLoop
+  );
+
+
+  clearInterval(
+    heartLoop
+  );
+
+
+  document.getElementById(
+    "finishBtn"
+  ).style.display = "none";
+
+
+  document.getElementById(
+    "timer"
+  ).style.display = "none";
+
+
+  document.getElementById(
+    "workMessage"
+  ).textContent =
+    "おしごとおしまいっ♡ 今日もがんばったねぇ";
+
+
+  for(let i=0;i<15;i++){
+
+    setTimeout(
+      makeHeart,
+      i*90
+    );
+
+  }
+
 
   renderStats();
+
 }
+
+
+/* ===== ハート ===== */
 
 function makeHeart(){
-  const h=document.createElement("div");
-  h.className="heart";
-  h.textContent=["♡","♥","💕","❤"][Math.floor(Math.random()*4)];
-  h.style.left=(15+Math.random()*70)+"%";
-  h.style.top=(40+Math.random()*45)+"%";
-  noatanWrap.appendChild(h);
-  setTimeout(()=>h.remove(),2400);
+
+  const wrap =
+    document.getElementById(
+      "noatanWrap"
+    );
+
+
+  const heart =
+    document.createElement(
+      "div"
+    );
+
+
+  const hearts =
+    ["♡","♥","💕","❤"];
+
+
+  heart.className =
+    "heart";
+
+
+  heart.textContent =
+    hearts[
+      Math.floor(
+        Math.random() *
+        hearts.length
+      )
+    ];
+
+
+  heart.style.left =
+    (12 + Math.random()*76)
+    + "%";
+
+
+  heart.style.top =
+    (45 + Math.random()*38)
+    + "%";
+
+
+  heart.style.fontSize =
+    (18 + Math.random()*15)
+    + "px";
+
+
+  wrap.appendChild(
+    heart
+  );
+
+
+  setTimeout(
+    () => heart.remove(),
+    2400
+  );
+
 }
+
+
+/* ===== 月間表示 ===== */
 
 function renderStats(){
-  const h=Number(localStorage.getItem("monthHours"))||0;
-  const d=Number(localStorage.getItem("monthDays"))||0;
 
-  monthHours.textContent=h.toFixed(1)+"時間";
-  monthDays.textContent=d+"日";
-  salary.textContent="¥"+Math.round(h*HOURLY_WAGE).toLocaleString();
+  const hours =
+    Number(
+      localStorage.getItem(
+        "monthHours"
+      )
+    ) || 0;
 
-  const p=Math.min(100,(h/MONTH_GOAL_HOURS)*100);
-  bar.style.width=p+"%";
-  percent.textContent=Math.round(p)+"%";
+
+  const days =
+    Number(
+      localStorage.getItem(
+        "monthDays"
+      )
+    ) || 0;
+
+
+  document.getElementById(
+    "monthHours"
+  ).textContent =
+    hours.toFixed(1)
+    + "時間";
+
+
+  document.getElementById(
+    "monthDays"
+  ).textContent =
+    days + "日";
+
+
+  const salary =
+    Math.round(
+      hours * HOURLY_WAGE
+    );
+
+
+  document.getElementById(
+    "salary"
+  ).textContent =
+    "¥" +
+    salary.toLocaleString();
+
+
+  const progress =
+    Math.min(
+      100,
+      hours /
+      MONTH_GOAL_HOURS *
+      100
+    );
+
+
+  document.getElementById(
+    "bar"
+  ).style.width =
+    progress + "%";
+
+
+  document.getElementById(
+    "percent"
+  ).textContent =
+    Math.round(progress)
+    + "%";
+
 }
 
+
+/* ===== 復帰 ===== */
+
 function restore(){
+
   renderDate();
   renderStats();
 
-  if(plan) selectPlan(plan);
+
+  /*
+    v0.3:
+    勤務予定は毎回選ぶ。
+    前回選択を勝手に復元しない。
+  */
+
 
   if(startedAt){
-    startBtn.style.display="none";
-    finishBtn.style.display="block";
-    timer.style.display="block";
-    workMessage.textContent="おしごと中だよぉ♡";
+
+    document.getElementById(
+      "startBtn"
+    ).style.display =
+      "none";
+
+
+    document.getElementById(
+      "finishBtn"
+    ).style.display =
+      "block";
+
+
+    document.getElementById(
+      "timer"
+    ).style.display =
+      "block";
+
+
+    document.getElementById(
+      "workMessage"
+    ).textContent =
+      "おしごと中だよぉ♡";
+
+
     updateTimer();
-    timerLoop=setInterval(updateTimer,1000);
-    heartLoop=setInterval(makeHeart,1100);
+
+
+    timerLoop =
+      setInterval(
+        updateTimer,
+        1000
+      );
+
+
+    heartLoop =
+      setInterval(
+        makeHeart,
+        1200
+      );
+
   }
+
 }
 
+
 restore();
+
 </script>
+
 </body>
 </html>
