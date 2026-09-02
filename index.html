@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>のあたんとおしごと。</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background: radial-gradient(circle at top, #43121d, #16080c 50%, #050304);
+  color: #fff8ed;
+  text-align: center;
+}
+
+.app {
+  min-height: 100vh;
+  padding: 55px 22px 30px;
+}
+
+h1 {
+  color: #f1cf83;
+  font-size: 27px;
+  margin-bottom: 45px;
+}
+
+.noatan {
+  width: 190px;
+  height: 190px;
+  margin: auto;
+  border-radius: 50%;
+  border: 2px solid #d0a14c;
+  background: linear-gradient(145deg,#601625,#210a10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 0 35px #8d2338;
+}
+
+.face {
+  font-size: 32px;
+}
+
+.message {
+  margin: 32px 0 12px;
+  font-size: 18px;
+  min-height: 55px;
+  line-height: 1.6;
+}
+
+.timer {
+  font-size: 42px;
+  font-weight: bold;
+  color: #f1cf83;
+  margin: 15px 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.info {
+  min-height: 25px;
+  opacity: .75;
+  margin-bottom: 25px;
+}
+
+button {
+  width: 100%;
+  max-width: 350px;
+  padding: 18px;
+  border: 0;
+  border-radius: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(135deg,#a71934,#df5261);
+}
+
+button:active {
+  transform: scale(.96);
+}
+
+#finish {
+  display: none;
+  background: #59464a;
+}
+
+.heart {
+  position: absolute;
+  font-size: 25px;
+  pointer-events: none;
+  animation: fly 2.2s ease-out forwards;
+}
+
+@keyframes fly {
+  0% {
+    transform: translateY(20px) scale(.4);
+    opacity: 0;
+  }
+  20% { opacity: 1; }
+  100% {
+    transform: translateY(-190px) scale(1.5) rotate(20deg);
+    opacity: 0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<h1>のあたんとおしごと。</h1>
+
+<div class="noatan" id="noatan">
+  <div class="face">꒰ ˶'ᵕ'˶ ꒱</div>
+</div>
+
+<div class="message" id="message">
+  しおん、おしごとするぅ？♡
+</div>
+
+<div class="timer" id="timer">
+  00:00:00
+</div>
+
+<div class="info" id="info"></div>
+
+<button id="start" onclick="startWork()">
+♡ 出勤する ♡
+</button>
+
+<button id="finish" onclick="finishWork()">
+♡ 退勤する ♡
+</button>
+
+</div>
+
+<script>
+
+let startedAt;
+let timerLoop;
+let heartLoop;
+
+function startWork() {
+
+  startedAt = Date.now();
+
+  start.style.display = "none";
+  finish.style.display = "inline-block";
+
+  const d = new Date();
+
+  info.textContent =
+    "出勤 " +
+    String(d.getHours()).padStart(2,"0") +
+    ":" +
+    String(d.getMinutes()).padStart(2,"0");
+
+  message.textContent =
+    "おしごと開始〜♡ しおんえらいっ";
+
+  updateTimer();
+
+  timerLoop = setInterval(updateTimer,1000);
+  heartLoop = setInterval(makeHeart,1200);
+
+  for(let i=0;i<8;i++) {
+    setTimeout(makeHeart,i*150);
+  }
+}
+
+function updateTimer() {
+
+  const diff = Date.now() - startedAt;
+
+  const h = Math.floor(diff/3600000);
+  const m = Math.floor((diff%3600000)/60000);
+  const s = Math.floor((diff%60000)/1000);
+
+  timer.textContent =
+    String(h).padStart(2,"0") + ":" +
+    String(m).padStart(2,"0") + ":" +
+    String(s).padStart(2,"0");
+}
+
+function makeHeart() {
+
+  const heart = document.createElement("div");
+
+  heart.className = "heart";
+
+  const hearts = ["♡","♥","❤","💕"];
+
+  heart.textContent =
+    hearts[Math.floor(Math.random()*hearts.length)];
+
+  heart.style.left =
+    Math.random()*160 + "px";
+
+  heart.style.top =
+    100 + Math.random()*50 + "px";
+
+  noatan.appendChild(heart);
+
+  setTimeout(() => heart.remove(),2200);
+}
+
+function finishWork() {
+
+  clearInterval(timerLoop);
+  clearInterval(heartLoop);
+
+  updateTimer();
+
+  finish.style.display = "none";
+
+  message.innerHTML =
+    "おしごとおしまいっ♡<br>しおん、今日もがんばったねぇ";
+
+  for(let i=0;i<15;i++) {
+    setTimeout(makeHeart,i*100);
+  }
+}
+
+</script>
+
+</body>
+</html>
